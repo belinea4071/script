@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# EOF text
-cat <<EOF
-
-*************************************************
-*                                               *
-*             Cockpit Installation              *
-*                                               *
-*************************************************
-EOF
-
 # Install Cockpit
 apt-get install cockpit -y
 
@@ -44,10 +34,11 @@ apt install cockpit-zfs-manager -y
 # Install additional Cockpit packages
 apt-get install -y cockpit cockpit-packagekit cockpit-pcp cockpit-storaged tuned
 
+# comment entry for root in /etc/cockpit/disallowed-users
+sed -i 's/root/#root/' /etc/cockpit/disallowed-users
+
 # Restart Cockpit service
 systemctl restart cockpit.service
-
-clear
 
 # EOF text
 cat <<EOF
@@ -59,6 +50,7 @@ cat <<EOF
 *************************************************
 
 Cockpit has been successfully installed and configured.
+The entry for root in /etc/cockpit/disallowed-users has been uncommented.
 You can access Cockpit by navigating to http://your-server-ip:9090 in your web browser.
 
 EOF
