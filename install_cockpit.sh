@@ -25,14 +25,14 @@ apt install cockpit-navigator -y
 # Install cockpit-identities
 apt install cockpit-identities -y
 
-# Add dummy network interface
-nmcli con add type dummy con-name fake ifname fake0 ip4 1.2.3.4/24 gw4 1.2.3.1
-
 # Install cockpit-zfs-manager
 apt install cockpit-zfs-manager -y
 
 # Install additional Cockpit packages
 apt-get install -y cockpit cockpit-packagekit cockpit-pcp cockpit-storaged tuned
+
+# Add dummy network interface
+nmcli con add type dummy con-name fake ifname fake0 ip4 1.2.3.4/24 gw4 1.2.3.1
 
 # comment entry for root in /etc/cockpit/disallowed-users
 sed -i 's/root/#root/' /etc/cockpit/disallowed-users
