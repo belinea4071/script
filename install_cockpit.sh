@@ -25,9 +25,6 @@ apt install cockpit-navigator -y
 # Install cockpit-identities
 apt install cockpit-identities -y
 
-# Add dummy network interface
-nmcli con add type dummy con-name fake ifname fake0 ip4 1.2.3.4/24 gw4 1.2.3.1
-
 # Install cockpit-zfs-manager
 apt install cockpit-zfs-manager -y
 
@@ -42,6 +39,9 @@ server_ip=$(hostname -I | awk '{print $1}')
 
 # Restart Cockpit service
 systemctl restart cockpit.service
+
+# Add dummy network interface
+nmcli con add type dummy con-name fake ifname fake0 ip4 1.2.3.4/24 gw4 1.2.3.1
 
 # Create a new user "eberle" with Samba permissions
 useradd -m eberle
