@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Add the Plex APT repository
+echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+
+# Import the Plex GPG key
+curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo gpg --dearmor -o /usr/share/keyrings/plex-archive-keyring.gpg
+
+# Add the GPG key to APT keyring
+echo "deb [signed-by=/usr/share/keyrings/plex-archive-keyring.gpg] https://downloads.plex.tv/repo/deb public main" | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+
+# Update the package list
+sudo apt update
+
+# Install Plex Media Server
+sudo apt install plexmediaserver
+
+# Start Plex Media Server
+sudo systemctl start plexmediaserver
+
+# Enable Plex Media Server to start on boot
+sudo systemctl enable plexmediaserver
+
+# Get the machine's IP address
+ip_address=$(hostname -I | cut -d' ' -f1)
+
+# Display the server URL with the actual IP address
+echo "Plex Media Server is installed. You can access it by navigating to http://$ip_address:32400/web in your web browser."
