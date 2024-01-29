@@ -37,10 +37,13 @@ nmcli con add type dummy con-name fake ifname fake0 ip4 1.2.3.4/24 gw4 1.2.3.1
 # comment entry for root in /etc/cockpit/disallowed-users
 sed -i 's/root/#root/' /etc/cockpit/disallowed-users
 
+# Get server IP address
+server_ip=$(hostname -I | awk '{print $1}')
+
 # Restart Cockpit service
 systemctl restart cockpit.service
 
-# EOF text
+# EOF text with dynamic server IP
 cat <<EOF
 
 *************************************************
@@ -51,6 +54,7 @@ cat <<EOF
 
 Cockpit has been successfully installed and configured.
 The entry for root in /etc/cockpit/disallowed-users has been uncommented.
-You can access Cockpit by navigating to http://your-server-ip:9090 in your web browser.
+You can access Cockpit by navigating to http://$server_ip:9090 in your web browser.
 
 EOF
+
